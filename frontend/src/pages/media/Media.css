@@ -1,0 +1,178 @@
+/* ─── Media & Staff Hub Design ─────────────────────────────────────────── */
+
+.media-portal {
+  display: flex;
+  min-height: 100vh;
+  background: #020617;
+  color: #e2e8f0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Sidebar */
+.media-sidebar {
+  width: 280px;
+  background: #0b1120;
+  border-right: 1px solid #1e293b;
+  padding: 30px 20px;
+}
+
+.media-logo-box {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 16px rgba(225, 29, 72, 0.2);
+}
+
+.media-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+
+.media-nav-item:hover, .media-nav-item.active {
+  background: #1e293b;
+  color: #fff;
+}
+
+/* Main */
+.media-content {
+  flex: 1;
+  padding: 40px 60px;
+  overflow-y: auto;
+}
+
+.media-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.media-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.media-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.media-card-value {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* Specialist Portal Specific */
+.staff-header {
+  background: linear-gradient(90deg, #1e293b, #0f172a);
+  padding: 32px;
+  border-radius: 20px;
+  border: 1px solid #334155;
+  margin-bottom: 40px;
+}
+
+.staff-dept-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* Wizard / Form */
+.wizard-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.wizard-card {
+  background: #0f172a;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid #1e293b;
+}
+
+.metric-input-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.metric-input-row input {
+  background: #020617;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.btn-add-metric {
+  background: transparent;
+  color: #38bdf8;
+  border: 1px dashed #38bdf8;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.btn-submit {
+  background: #e11d48;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 32px;
+  cursor: pointer;
+}
+
+/* Broadcast log table */
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.log-table th {
+  text-align: left;
+  padding: 16px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.log-table td {
+  padding: 16px;
+  border-bottom: 1px solid #1e293b;
+  font-size: 14px;
+}

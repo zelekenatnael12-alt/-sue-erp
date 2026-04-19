@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LocationType {
+  AREA
+  SUB_REGION
+  REGION
+  NATIONAL
+}
+
+enum StaffRole {
+  AREA_COORD
+  SUB_REG_COORD
+  REG_DIRECTOR
+  ADMIN
+  EXECUTIVE
+}
+
+enum DocumentStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  CORRECTION_REQUIRED
+}
+
+enum ActionTakenType {
+  APPROVED
+  CORRECTION_REQUESTED
+}
+
+enum DocumentType {
+  ANNUAL_PLAN
+  MONTHLY_REPORT
+}
+
+model Location {
+  id            String       @id @default(uuid()) @db.Uuid
+  name          String
+  location_type LocationType
+  parent_id     String?      @db.Uuid
+  
+  parent        Location?    @relation("LocationHierarchy", fields: [parent_id], references: [id])
+  children      Location[]   @relation("LocationHierarchy")
+  
+  users         User[]
+
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+
+  @@map("locations")
+}
+
+model User {
+  id                     String    @id @default(uuid()) @db.Uuid
+  email                  String    @unique
+  full_name              String
+  passwordHash           String    @default("")
+  role                   StaffRole
+  
+  location_id            String?   @db.Uuid
+  location               Location? @relation(fields: [location_id], references: [id])
+  
+  provident_fund_balance Decimal   @default(0.0)
+  
+  annual_plans           AnnualPlan[]
+  monthly_reports        MonthlyReport[]
+  approval_logs          ApprovalLog[]
+
+  isActive               Boolean   @default(true)
+  created_at             DateTime  @default(now())
+  updated_at             DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model AnnualPlan {
+  id              String         @id @default(uuid()) @db.Uuid
+  author_id       String         @db.Uuid
+  author          User           @relation(fields: [author_id], references: [id])
+  
+  year            String
+  status          DocumentStatus @default(DRAFT)
+  
+  metrics_payload Json           // JSONB under the hood in PostgreSQL for the 12-month grid
+  
+  monthly_reports MonthlyReport[]
+
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+
+  @@map("annual_plans")
+}
+
+model MonthlyReport {
+  id                 String         @id @default(uuid()) @db.Uuid
+  author_id          String         @db.Uuid
+  author             User           @relation(fields: [author_id], references: [id])
+  
+  annual_plan_id     String?        @db.Uuid
+  annual_plan        AnnualPlan?    @relation(fields: [annual_plan_id], references: [id])
+  
+  month              String
+  status             DocumentStatus @default(DRAFT)
+  
+  actuals_payload    Json           // JSONB: Target vs Actual numbers and variance notes
+  transforming_story String?
+
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt
+
+  @@map("monthly_reports")
+}
+
+model ApprovalLog {
+  id                 String          @id @default(uuid()) @db.Uuid
+  document_type      DocumentType
+  document_id        String          @db.Uuid
+  
+  reviewer_id        String          @db.Uuid
+  reviewer           User            @relation(fields: [reviewer_id], references: [id])
+  
+  action_taken       ActionTakenType
+  feedback_comment   String?
+  
+  created_at         DateTime        @default(now())
+
+  @@map("approval_logs")
+}

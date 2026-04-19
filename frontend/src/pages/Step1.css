@@ -1,0 +1,136 @@
+.wizard-step1 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.flex-center-gap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn--text-primary {
+  color: var(--color-primary);
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  transition: all 0.2s;
+}
+
+.btn--text-primary:hover {
+  background-color: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.form-table th {
+  padding: 1.125rem 1.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(248, 250, 252, 0.5);
+  font-family: var(--font-display);
+}
+
+.form-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+.w-24 {
+  width: 7rem;
+}
+
+.w-16 {
+  width: 5rem;
+}
+
+.table-input {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.table-input:focus {
+  outline: none;
+  background: var(--color-bg);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.highlight-text {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+}
+
+.italic-text {
+  font-style: italic;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.delete-btn {
+  color: var(--color-text-muted);
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+/* Table Footer Styling */
+.form-table tfoot tr {
+  background: var(--color-primary-light);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+}
+
+.form-table tfoot td {
+  border-bottom: none;
+  padding: 1.125rem 1.5rem;
+}

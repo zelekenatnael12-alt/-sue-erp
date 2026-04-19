@@ -1,0 +1,298 @@
+/* ─── School Ministry Portal Design ─────────────────────────────────────── */
+
+.ministry-portal {
+  display: flex;
+  min-height: 100vh;
+  background: #020617;
+  color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Ministry Sidebar ── */
+.ministry-sidebar {
+  width: 260px;
+  background: #0f172a;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.ministry-sidebar-head {
+  padding: 30px 24px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.ministry-logo {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.ministry-sidebar-head h2 {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #f1f5f9;
+}
+
+.ministry-sidebar-head p {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 4px 0 0;
+}
+
+.ministry-nav {
+  padding: 24px 12px;
+  flex: 1;
+}
+
+.ministry-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.ministry-nav-link:hover {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.ministry-nav-link.active {
+  background: rgba(14, 165, 233, 0.1);
+  color: #38bdf8;
+}
+
+/* ── Main Content Area ── */
+.ministry-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px;
+}
+
+.ministry-header {
+  margin-bottom: 40px;
+}
+
+.ministry-header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.ministry-header p {
+  color: #64748b;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+/* ── Ministry Health Board ── */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.metric-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 20px;
+  padding: 28px;
+  transition: transform 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: #38bdf8;
+}
+
+.metric-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.metric-value {
+  font-size: 40px;
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1;
+}
+
+.metric-trend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trend-up { color: #10b981; }
+
+/* ── Data Tables ── */
+.ministry-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.ministry-card-title {
+  padding: 24px;
+  border-bottom: 1px solid #1e293b;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ministry-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ministry-table th {
+  text-align: left;
+  padding: 16px 24px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #020617;
+}
+
+.ministry-table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid #1e293b;
+  font-size: 14px;
+}
+
+.ministry-table tr:hover {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.dept-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #334155;
+  color: #cbd5e1;
+}
+
+/* ── Forms & Controls ── */
+.op-desk-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+}
+
+.deployment-form {
+  padding: 24px;
+}
+
+.form-field {
+  margin-bottom: 24px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.form-field select {
+  width: 100%;
+  padding: 12px 16px;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  color: #f1f5f9;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.btn-approve {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-approve:hover {
+  background: #10b981;
+  color: white;
+}
+
+/* Empty State */
+.empty-data {
+  padding: 60px;
+  text-align: center;
+  color: #475569;
+}
+
+/* Wide-screen Optimizations */
+@media (min-width: 1900px) {
+  .ministry-main {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+}

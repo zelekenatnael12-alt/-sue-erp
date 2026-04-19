@@ -1,0 +1,584 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  full_name    String
+  passwordHash String
+  role         String
+  regionId     String?
+  subRegionId  String?
+  areaId       String?
+  region       Region?    @relation(fields: [regionId], references: [id])
+  subRegion    SubRegion? @relation(fields: [subRegionId], references: [id])
+  area         Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields for migration
+  regionLegacy         String?           @map("region")
+  subRegionLegacy      String?           @map("subRegion")
+  areaLegacy           String?           @map("area")
+  isActive             Boolean           @default(true)
+  mustChangePassword   Boolean           @default(false)
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  monthlySalary        Float             @default(0)
+  baseSalary           Float             @default(0)
+  subDepartment        String?
+  idNumber             String?           @unique
+  title                String?
+  titleAm              String?
+  firstNameAm          String?
+  lastNameAm           String?
+  fullNameAmharic      String?
+  roleAmharic          String?
+  department           String?
+  departmentAm         String?
+  photoUrl             String?
+  phone                String?
+  emergencyContact     String?
+  bloodType            String?
+  officeAddress        String?           @default("HEAD OFFICE / ዋና ቢሮ")
+  nationality          String?           @default("ETHIOPIAN / ኢትዮጵያዊ")
+  issueDate            DateTime?
+  expireDate           DateTime?
+  announcements        Announcement[]
+  proposedAreas        Area[]            @relation("AreaProposer")
+  assignedAssets       Asset[]           @relation("AssetHolder")
+  registeredAssociates Associate[]       @relation("AssociateRegistrar")
+  capacityRequests     CapacityRequest[]
+  donors               Donor[]           @relation("DonorRegistrar")
+  authoredEvents       Event[]           @relation("EventAuthor")
+  idRequests           IdRequest[]
+  partners             Partner[]
+  pledges              Pledge[]
+  reviewedPlans        ProjectPlan[]     @relation("PlanReviewer")
+  authoredPlans        ProjectPlan[]     @relation("PlanAuthor")
+  plans                ProjectPlan[]
+  reviewedReports      Report[]          @relation("ReportReviewer")
+  authoredReports      Report[]          @relation("ReportAuthor")
+  reports              Report[]
+  approvedSchools      School[]          @relation("SchoolApprover")
+  registeredSchools    School[]          @relation("SchoolRegistrar")
+  verifiedSchools      School[]          @relation("SchoolVerifier")
+  verifiedVolunteers   Volunteer[]       @relation("VolunteerVerifier")
+  vetoLogs             VetoLog[]
+  auditLogs            AuditLog[]
+  registeredVolunteers Volunteer[]       @relation("VolunteerRegistrar")
+  weeklyProgress       WeeklyProgress[]
+  legacyId             String?           @unique
+  notifications        Notification[]
+  supervisorId         Int?
+  supervisor           User?             @relation("UserSupervisor", fields: [supervisorId], references: [id])
+  subordinates         User[]            @relation("UserSupervisor")
+}
+
+model ProjectPlan {
+  id                     Int        @id @default(autoincrement())
+  projectName            String
+  projectType            String?
+  description            String?
+  orgStructure           String?
+  leadRoles              String?
+  totalStaff             Int?
+  totalHighSchools       Int?
+  suFellowshipSchools    Int?
+  fellowshipNotSuSchools Int?
+  noFellowshipSchools    Int?
+  middleSchools          Int?
+  fullTimeStaffCount     Int?
+  associateStaffCount    Int?
+  volunteerCount         Int?
+  regionId               String?
+  subRegionId            String?
+  areaId                 String?
+  region                 Region?    @relation(fields: [regionId], references: [id])
+  subRegion              SubRegion? @relation(fields: [subRegionId], references: [id])
+  area                   Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields
+  locationLegacy   String?          @map("location")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  coordinatorId    Int
+  title            String?
+  content          String?
+  authorId         Int?
+  submittedAt      DateTime?
+  viewedAt         DateTime?
+  decidedAt        DateTime?
+  reviewerId       Int?
+  reviewerComments String?
+  reportType       String           @default("FIELD")
+  subDepartment    String?
+  metricsJson      String?
+  matrixActivities MatrixActivity[]
+  officeTasks      OfficeTask[]
+  reviewer         User?            @relation("PlanReviewer", fields: [reviewerId], references: [id])
+  author           User?            @relation("PlanAuthor", fields: [authorId], references: [id])
+  coordinator      User             @relation(fields: [coordinatorId], references: [id])
+  reports          Report[]
+}
+
+model MatrixActivity {
+  id       Int         @id @default(autoincrement())
+  planId   Int
+  activity String
+  target   Int?        @default(0)
+  m1       Int?        @default(0)
+  m2       Int?        @default(0)
+  m3       Int?        @default(0)
+  m4       Int?        @default(0)
+  m5       Int?        @default(0)
+  m6       Int?        @default(0)
+  m7       Int?        @default(0)
+  m8       Int?        @default(0)
+  m9       Int?        @default(0)
+  m10      Int?        @default(0)
+  m11      Int?        @default(0)
+  m12      Int?        @default(0)
+  plan     ProjectPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model OfficeTask {
+  id     Int         @id @default(autoincrement())
+  planId Int
+  title  String
+  budget Float       @default(0)
+  plan   ProjectPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model Report {
+  id                   Int          @id @default(autoincrement())
+  title                String
+  type                 String       @default("REGULAR")
+  reportMonth          String?
+  reportYear           Int?
+  budgetSpent          Float?       @default(0)
+  narrative            String?
+  actualsMatrix        String?
+  status               String       @default("PENDING_REVIEW")
+  dateSubmitted        DateTime     @default(now())
+  coordinatorId        Int?
+  projectPlanId        Int?
+  receiptUrl           String?
+  expenseAmount        Float?
+  content              String?
+  authorId             Int?
+  submittedAt          DateTime?
+  viewedAt             DateTime?
+  decidedAt            DateTime?
+  reviewerId           Int?
+  reviewerComments     String?
+  reportType           String       @default("FIELD")
+  subDepartment        String?
+  metricsJson          String?
+  ministryRaised       Float?       @default(0)
+  ministryExpended     Float?       @default(0)
+  receiptJustification String?
+  reversalOfId         Int?
+  reversalJustification String?
+  reviewer             User?        @relation("ReportReviewer", fields: [reviewerId], references: [id])
+  author               User?        @relation("ReportAuthor", fields: [authorId], references: [id])
+  projectPlan          ProjectPlan? @relation(fields: [projectPlanId], references: [id])
+  coordinator          User?        @relation(fields: [coordinatorId], references: [id])
+}
+
+model Announcement {
+  id          String     @id @default(uuid())
+  title       String
+  content     String
+  regionId    String?
+  subRegionId String?
+  areaId      String?
+  region      Region?    @relation(fields: [regionId], references: [id])
+  subRegion   SubRegion? @relation(fields: [subRegionId], references: [id])
+  area        Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields for migration
+  regionLegacy    String?  @map("region")
+  subRegionLegacy String?  @map("subRegion")
+  areaLegacy      String?  @map("area")
+  authorId        Int
+  createdAt       DateTime @default(now())
+  author          User     @relation(fields: [authorId], references: [id])
+  viewedBy        String   @default("[]") // JSON array of user IDs
+}
+
+model Event {
+  id          String     @id @default(uuid())
+  title       String
+  date        DateTime
+  location    String?
+  description String?
+  regionId    String?
+  subRegionId String?
+  areaId      String?
+  region      Region?    @relation(fields: [regionId], references: [id])
+  subRegion   SubRegion? @relation(fields: [subRegionId], references: [id])
+  area        Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields for migration
+  subRegionLegacy String?  @map("subRegion")
+  authorId        Int
+  createdAt       DateTime @default(now())
+  author          User     @relation("EventAuthor", fields: [authorId], references: [id])
+}
+
+model FinancialRecord {
+  id          Int      @id @default(autoincrement())
+  title       String
+  amount      Float
+  type        String   @default("EXPENSE")
+  category    String
+  date        DateTime @default(now())
+  description String?
+  projectId   Int?
+  reportId    Int?
+}
+
+model Newsletter {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  author      String
+  publishDate DateTime @default(now())
+  status      String   @default("DRAFT")
+}
+
+model SystemSettings {
+  key   String @id
+  value String
+}
+
+model CapacityRequest {
+  id            Int        @id @default(autoincrement())
+  roleRequested String
+  regionId      String?
+  subRegionId   String?
+  areaId        String?
+  region        Region?    @relation(fields: [regionId], references: [id])
+  subRegion     SubRegion? @relation(fields: [subRegionId], references: [id])
+  area          Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields
+  locationLegacy String?  @map("location")
+  justification  String
+  status         String   @default("PENDING_SUB_REGION")
+  requesterId    Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  requester      User     @relation(fields: [requesterId], references: [id])
+}
+
+model School {
+  id             Int             @id @default(autoincrement())
+  name           String
+  regionId       String?
+  subRegionId    String?
+  areaId         String?
+  region         Region?         @relation(fields: [regionId], references: [id])
+  subRegion      SubRegion?      @relation(fields: [subRegionId], references: [id])
+  area           Area?           @relation(fields: [areaId], references: [id])
+  memberCount    Int             @default(0)
+  smallGroupCount Int            @default(0)
+  leaders        SchoolLeader[]
+
+  // Legacy fields
+  locationLegacy String?         @map("location")
+  status         String          @default("NO_FELLOWSHIP")
+  registeredById Int
+  isProxy        Boolean         @default(false)
+  approvalStatus String          @default("APPROVED")
+  approvedById   Int?
+  createdAt      DateTime        @default(now())
+  approvedBy     User?           @relation("SchoolApprover", fields: [approvedById], references: [id])
+  registeredBy   User            @relation("SchoolRegistrar", fields: [registeredById], references: [id])
+
+  // Verification Lifecycle
+  verificationStatus String       @default("PENDING") // PENDING, VERIFIED, REJECTED
+  verifiedAt         DateTime?
+  verifiedById       Int?
+  verifiedBy         User?          @relation("SchoolVerifier", fields: [verifiedById], references: [id])
+}
+
+model SchoolLeader {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String   // e.g., PATRON, COORDINATOR, STUDENT_LEADER
+  phone     String?
+  schoolId  Int
+  school    School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Associate {
+  id             Int        @id @default(autoincrement())
+  name           String
+  phone          String?
+  photoUrl       String?
+  backgroundInfo String?
+  status         String     @default("PENDING")
+  registeredById Int
+  regionId       String?
+  subRegionId    String?
+  areaId         String?
+  region         Region?    @relation(fields: [regionId], references: [id])
+  subRegion      SubRegion? @relation(fields: [subRegionId], references: [id])
+  area           Area?      @relation(fields: [areaId], references: [id])
+  createdAt      DateTime   @default(now())
+  registeredBy   User       @relation("AssociateRegistrar", fields: [registeredById], references: [id])
+}
+
+model Pledge {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  format    String   @default("MONTHLY")
+  active    Boolean  @default(true)
+  donorId   Int?
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  donor     Donor?   @relation(fields: [donorId], references: [id])
+}
+
+model Volunteer {
+  id             Int        @id @default(autoincrement())
+  name           String
+  phone          String?
+  registeredById Int
+  regionId       String?
+  subRegionId    String?
+  areaId         String?
+  region         Region?    @relation(fields: [regionId], references: [id])
+  subRegion      SubRegion? @relation(fields: [subRegionId], references: [id])
+  area           Area?      @relation(fields: [areaId], references: [id])
+  createdAt      DateTime   @default(now())
+
+  // Verification Lifecycle
+  verificationStatus String   @default("PENDING") // PENDING, VERIFIED, REJECTED
+  verifiedAt         DateTime?
+  verifiedById       Int?
+  verifiedBy         User?     @relation("VolunteerVerifier", fields: [verifiedById], references: [id])
+
+  registeredBy   User      @relation("VolunteerRegistrar", fields: [registeredById], references: [id])
+}
+
+model Donor {
+  id             Int        @id @default(autoincrement())
+  name           String
+  phone          String?
+  email          String?
+  areaStaffId    Int
+  regionId       String?
+  subRegionId    String?
+  areaId         String?
+  region         Region?    @relation(fields: [regionId], references: [id])
+  subRegion      SubRegion? @relation(fields: [subRegionId], references: [id])
+  area           Area?      @relation(fields: [areaId], references: [id])
+  conflictStatus String     @default("CLEARED")
+  conflictNote   String?
+  createdAt      DateTime   @default(now())
+  areaStaff      User       @relation("DonorRegistrar", fields: [areaStaffId], references: [id])
+  pledges        Pledge[]
+}
+
+model Partner {
+  id             String     @id @default(uuid())
+  name           String
+  partnerType    String
+  contactDetails String?
+  status         String     @default("APPROVED")
+  registeredById Int
+  regionId       String?
+  subRegionId    String?
+  areaId         String?
+  region         Region?    @relation(fields: [regionId], references: [id])
+  subRegion      SubRegion? @relation(fields: [subRegionId], references: [id])
+  area           Area?      @relation(fields: [areaId], references: [id])
+  createdAt      DateTime   @default(now())
+  registeredBy   User       @relation(fields: [registeredById], references: [id])
+}
+
+model WeeklyProgress {
+  id                 Int      @id @default(autoincrement())
+  schoolsVisited     Int      @default(0)
+  meetingsHeld       Int      @default(0)
+  fellowshipsVisited Int      @default(0)
+  otherMetrics       String?
+  userId             Int
+  createdAt          DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id])
+}
+
+model IdRequest {
+  id        Int      @id @default(autoincrement())
+  reason    String
+  status    String   @default("PENDING")
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Area {
+  id               String            @id @default(uuid())
+  name             String
+  boundaries       String?
+  justification    String?
+  subRegionId      String
+  subRegion        SubRegion         @relation(fields: [subRegionId], references: [id])
+  zone             String?
+  town             String?
+  contactPerson    String?
+  fellowshipsCount Int               @default(0)
+  status           String            @default("PENDING_REGIONAL")
+  proposedById     Int
+  proposedBy       User              @relation("AreaProposer", fields: [proposedById], references: [id])
+  users            User[]
+  schools          School[]
+  announcements    Announcement[]
+  events           Event[]
+  projectPlans     ProjectPlan[]
+  assets           Asset[]
+  capacityRequests CapacityRequest[]
+  Associate        Associate[]
+  Volunteer        Volunteer[]
+  Donor            Donor[]
+  Partner          Partner[]
+}
+
+model Region {
+  id               String            @id @default(uuid())
+  name             String            @unique
+  subRegions       SubRegion[]
+  users            User[]
+  schools          School[]
+  announcements    Announcement[]
+  events           Event[]
+  projectPlans     ProjectPlan[]
+  assets           Asset[]
+  capacityRequests CapacityRequest[]
+  Associate        Associate[]
+  Volunteer        Volunteer[]
+  Donor            Donor[]
+  Partner          Partner[]
+}
+
+model SubRegion {
+  id               String            @id @default(uuid())
+  name             String
+  regionId         String
+  region           Region            @relation(fields: [regionId], references: [id])
+  areas            Area[]
+  users            User[]
+  schools          School[]
+  announcements    Announcement[]
+  events           Event[]
+  projectPlans     ProjectPlan[]
+  assets           Asset[]
+  capacityRequests CapacityRequest[]
+  Associate        Associate[]
+  Volunteer        Volunteer[]
+  Donor            Donor[]
+  Partner          Partner[]
+}
+
+model Asset {
+  id              String     @id @default(uuid())
+  name            String
+  serialNumber    String     @unique
+  value           Float
+  condition       String     @default("NEW")
+  maintenanceNote String?
+  currentHolderId Int?
+  regionId        String?
+  subRegionId     String?
+  areaId          String?
+  region          Region?    @relation(fields: [regionId], references: [id])
+  subRegion       SubRegion? @relation(fields: [subRegionId], references: [id])
+  area            Area?      @relation(fields: [areaId], references: [id])
+
+  // Legacy fields
+  regionLegacy  String?        @map("region")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  currentHolder User?          @relation("AssetHolder", fields: [currentHolderId], references: [id])
+  history       AssetHistory[]
+  legacyId      String?        @unique
+}
+
+model AssetHistory {
+  id               String   @id @default(uuid())
+  assetId          String
+  previousHolderId Int?
+  newHolderId      Int?
+  changedById      Int
+  action           String
+  note             String?
+  createdAt        DateTime @default(now())
+  asset            Asset    @relation(fields: [assetId], references: [id])
+}
+
+model AdvisoryMember {
+  id         String   @id @default(uuid())
+  fullName   String
+  church     String?
+  profession String?
+  phone      String?
+  termStart  DateTime
+  termEnd    DateTime
+  termNumber Int      @default(1)
+  region     String
+  status     String   @default("PENDING_NATIONAL")
+  createdAt  DateTime @default(now())
+  legacyId   String?  @unique
+}
+
+model SyncLog {
+  id           String   @id @default(uuid())
+  userId       String
+  syncType     String // DATA_LANE_1, BINARY_LANE_2
+  status       String // SUCCESS, FAILED
+  errorMessage String?
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  action     String // CREATE, UPDATE, DELETE, LOGIN, APPROVE, REJECT
+  entityType String? // Plan, Report, School, Asset, User
+  entityId   String?
+  metadata   String? // JSON string for diffs or extra info
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+}
+
+model VetoLog {
+  id            String   @id @default(uuid())
+  actionId      String
+  actionType    String
+  vetoedById    Int
+  justification String
+  createdAt     DateTime @default(now())
+  vetoedBy      User     @relation(fields: [vetoedById], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // VETO, SYSTEM, BROADCAST
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

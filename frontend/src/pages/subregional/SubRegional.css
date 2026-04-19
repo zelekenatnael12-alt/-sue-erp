@@ -1,0 +1,202 @@
+.sub-regional-home {
+  padding: 0 0 100px 0;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Ministry Health Board */
+.health-board {
+  background: white;
+  margin: 16px;
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.health-board__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.health-board__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.coverage-metric {
+  margin-bottom: 24px;
+}
+
+.coverage-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.coverage-bar {
+  width: 100%;
+  height: 12px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.coverage-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  transition: width 1s ease-out;
+}
+
+.health-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat-pill {
+  flex: 1;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #f1f5f9;
+}
+
+.stat-pill__val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.stat-pill__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* Manager Inbox */
+.manager-inbox {
+  margin: 16px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  border-left: 4px solid #f97316; /* Alert Orange */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.inbox-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.inbox-title {
+  font-weight: 800;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.inbox-badge {
+  background: #fff7ed;
+  color: #c2410c;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inbox-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #fffcf9;
+  border-radius: 12px;
+  border: 1px solid #ffedd5;
+}
+
+.inbox-item__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.inbox-item__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.inbox-item__date {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.inbox-zero {
+  text-align: center;
+  padding: 20px;
+}
+
+.inbox-zero span {
+  font-size: 2rem;
+  color: #10b981;
+}
+
+.view-all-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Quick Action Grid */
+.sub-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 16px;
+}
+
+.sub-tile {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 110px;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.sub-tile__icon {
+  font-size: 1.5rem;
+}
+
+.sub-tile__label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.2;
+}

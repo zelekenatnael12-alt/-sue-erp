@@ -1,0 +1,12 @@
+node_modules/
+.env*
+dist/
+*.log
+*.zip
+*.tsbuildinfo
+out.txt
+template_extracted.txt
+verify_out*.txt
+verify_results.txt
+build_output.txt
+env_local.txt

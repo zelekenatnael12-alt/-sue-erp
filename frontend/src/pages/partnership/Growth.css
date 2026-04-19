@@ -1,0 +1,275 @@
+/* ─── Growth Hub Shared Design (Partnership & Capacity) ────────────────── */
+
+.growth-portal {
+  display: flex;
+  min-height: 100vh;
+  background: #0f172a;
+  color: #f1f5f9;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Growth Sidebar ── */
+.growth-sidebar {
+  width: 280px;
+  background: #1e293b;
+  border-right: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+}
+
+.growth-sidebar-head {
+  padding: 32px 24px;
+  border-bottom: 1px solid #334155;
+  background: linear-gradient(to bottom, #1e293b, #0f172a);
+}
+
+.growth-logo {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.growth-sidebar-head h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  color: #38bdf8;
+}
+
+.growth-nav {
+  padding: 24px 12px;
+}
+
+.growth-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.growth-nav-link:hover {
+  background: rgba(56, 189, 248, 0.05);
+  color: #f1f5f9;
+}
+
+.growth-nav-link.active {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border-left: 3px solid #38bdf8;
+}
+
+/* ── Main Content ── */
+.growth-main {
+  flex: 1;
+  padding: 48px;
+  overflow-y: auto;
+}
+
+.growth-header {
+  margin-bottom: 48px;
+}
+
+.growth-header h1 {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ── Metric Grid ── */
+.growth-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.growth-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.growth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.05), transparent);
+}
+
+.growth-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.growth-card-value {
+  font-size: 48px;
+  font-weight: 900;
+  color: #f8fafc;
+}
+
+/* ── Conflict Desk ── */
+.conflict-desk {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.conflict-item {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.conflict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.conflict-id {
+  font-weight: 800;
+  color: #f43f5e;
+  font-size: 14px;
+}
+
+.conflict-comparo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.donor-blob {
+  background: #1e293b;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.donor-blob h4 { margin: 0 0 8px; color: #94a3b8; }
+
+.resolve-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+/* ── PSR Health Board ── */
+.psr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.psr-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.psr-card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.psr-name { font-weight: 700; font-size: 16px; }
+.psr-region { font-size: 12px; color: #64748b; }
+
+.psr-bar-bg {
+  height: 8px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0 8px;
+}
+
+.psr-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  border-radius: 4px;
+}
+
+.psr-percent {
+  font-size: 12px;
+  font-weight: 800;
+  color: #38bdf8;
+  text-align: right;
+}
+
+/* ── Vault Timeline ── */
+.vault-timeline {
+  border-left: 2px solid #1e293b;
+  padding-left: 32px;
+  margin-left: 12px;
+}
+
+.vault-entry {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.vault-entry::before {
+  content: '';
+  position: absolute;
+  left: -42px;
+  top: 0;
+  width: 18px; height: 18px;
+  background: #38bdf8;
+  border: 4px solid #0f172a;
+  border-radius: 50%;
+}
+
+.vault-date {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.vault-body {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 14px;
+}
+
+.vault-author {
+  font-weight: 700;
+  color: #38bdf8;
+  margin-bottom: 8px;
+}
+
+.vault-text {
+  color: #94a3b8;
+  line-height: 1.6;
+}

@@ -1,0 +1,316 @@
+/* ═══════════════════════════════════════════════════
+   ID CARD GENERATOR  –  Tech Minimalist Stylesheet (Canvas-Safe)
+   CR80 at 300 DPI = 1011 × 638 px
+═══════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600;700;800;900&display=swap');
+
+/* ── Button ── */
+.id-card-action { display: inline-block; }
+
+.id-card-btn {
+  display: flex;
+  align-items: center;
+  background: #0284c7;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.id-card-btn span {
+  margin-right: 6px; /* Canvas-safe */
+}
+.id-card-btn:hover:not(:disabled) { background: #0369a1; }
+.id-card-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.id-card-btn .material-symbols-outlined { font-size: 16px; }
+
+/* ── Hidden render area ── */
+.id-card-hidden-render {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: -1;
+}
+
+.id-card-preview-scale {
+  width: 1011px;
+  height: 638px;
+  transform: scale(0.4);
+  transform-origin: top left;
+}
+
+/* ═══════════════════════════════════════════════════
+   CR80 CARD BASE  –  1011 × 638 px
+═══════════════════════════════════════════════════ */
+.id-cr80 {
+  width: 1011px;
+  height: 638px;
+  background: #ffffff;
+  font-family: 'Noto Sans Ethiopic', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 1.5; /* Strict line height */
+}
+
+/* ── FRONT: Header ── */
+.id-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 44px 24px;
+  border-bottom: 2px solid #f0f9ff;
+}
+
+.id-logo {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.id-org-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.id-org-am {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0284c7;
+  letter-spacing: 0.01em;
+  text-align: right;
+  margin-bottom: 4px; /* Canvas-safe gap replacement */
+}
+.id-org-en {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0369a1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: right;
+  margin-bottom: 0;
+}
+
+/* ── FRONT: Body ── */
+.id-body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 32px 44px;
+}
+
+/* Photo (Left side strict dims) */
+.id-photo-wrap {
+  width: 300px;
+  margin-right: 40px; /* strict canvas-safe gap */
+  flex-shrink: 0;
+}
+.id-photo {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  display: block;
+}
+.id-photo-placeholder {
+  width: 300px;
+  height: 300px;
+  background: #f1f5f9;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  color: #94a3b8;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* Typographic Stack (Right side strict dims) */
+.id-type-stack {
+  display: flex;
+  flex-direction: column;
+  width: 590px; /* strict bounding box */
+}
+
+.id-name-am {
+  font-size: 40px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+.id-name-en {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.id-role-am {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0284c7;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.id-role-en {
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.id-dept {
+  font-size: 15px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 20px;
+}
+.id-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+  padding-top: 16px;
+  border-top: 1.5px solid #e2e8f0;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 0;
+}
+
+/* ── FRONT: Footer bar ── */
+.id-footer-bar {
+  height: 12px;
+  background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 50%, #0284c7 100%);
+}
+
+/* ═══════════════════════════════════════════════════
+   BACK OF CARD
+═══════════════════════════════════════════════════ */
+.id-cr80-back {
+  justify-content: space-between;
+}
+
+.id-back-body {
+  display: flex;
+  flex: 1;
+  padding: 40px 44px 24px;
+  align-items: flex-start;
+}
+
+/* Left: QR + Emergency (Strict Dims) */
+.id-back-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  margin-right: 40px; /* Safe gap */
+  flex-shrink: 0;
+}
+.id-qr-label {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  text-align: left;
+}
+.id-emergency {
+  display: flex;
+  flex-direction: column;
+}
+.id-em-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 3px;
+}
+.id-em-val {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 0;
+}
+
+/* Right: Info grid (Strict Dims) */
+.id-back-right {
+  display: flex;
+  flex-direction: column;
+  width: 590px;
+}
+.id-info-row { display: flex; flex-direction: column; margin-bottom: 14px; }
+.id-info-val {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.5;
+}
+.id-info-office {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.id-dates {
+  display: flex;
+  margin-bottom: 14px;
+}
+.id-dates > div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px; /* Safe interval */
+}
+.id-date-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 3px;
+}
+.id-date-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.id-signature-line {
+  margin-top: 16px; /* pushing to bottom */
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.id-sig-blank {
+  height: 1.5px;
+  background: #cbd5e1;
+  width: 220px;
+  margin-bottom: 6px;
+}
+.id-sig-label {
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+
+/* Back Footer */
+.id-back-footer {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 44px;
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1.5;
+}
