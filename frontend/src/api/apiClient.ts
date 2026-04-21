@@ -28,7 +28,7 @@ export async function apiClient<T>(endpoint: string, options: RequestInit = {}):
     if (response.status === 401) {
       if (!window.location.pathname.includes('/login')) {
         localStorage.removeItem('sue_user'); // Clear stale UI state
-        window.location.href = '/erp/login?expired=true';
+        window.location.href = '/-sue-erp/login?expired=true';
       }
       throw new Error('Session expired. Please login again.');
     }
