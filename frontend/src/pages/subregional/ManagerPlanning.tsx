@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CardWizard, { WizardStep } from '../../components/area/CardWizard';
 import { subRegionalApi } from '../../api/subRegionalApi';
 import '../area/AreaForms.css';
 
-const ManagerPlanning: React.FC = () => {
+const ManagerPlanning = () => {
   const [loading, setLoading] = useState(false);
   const [submissions, setSubmissions] = useState<{ reports: any[], plans: any[] }>({ reports: [], plans: [] });
   
@@ -13,6 +13,7 @@ const ManagerPlanning: React.FC = () => {
     expenseAmount: '',
     receipt: null as File | null
   });
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchHistory();
@@ -82,7 +83,7 @@ const ManagerPlanning: React.FC = () => {
          <h1 className="area-form-title">Manager Planning</h1>
       </header>
 
-      <CardWizard steps={steps} onSubmit={handleSubmit} loading={loading} />
+      <CardWizard steps={steps} onSubmit={handleSubmit} loading={loading} error={error} />
 
       <section style={{ padding: '24px 16px' }}>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '16px' }}>History Board</h3>

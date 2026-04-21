@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { areaApi } from '../../api/areaApi';
 import { api } from '../../api/api';
-import { useAuth } from '../../context/AuthContext';
 import './AreaForms.css';
 import './AreaPortal.css';
 
-const PsrHub: React.FC = () => {
+const PsrHub = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'donor' | 'pledge'>('donor');
   const [loading, setLoading] = useState(false);
@@ -67,8 +66,7 @@ const PsrHub: React.FC = () => {
     }
   };
 
-  const radius = 50;
-  const circumference = 2 * Math.PI * radius;
+  // const radius = 50;
 
   return (
     <div className="area-form-page">

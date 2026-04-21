@@ -4,7 +4,7 @@ import { api } from '../api/api';
 import './Planning.css';
 
 export default function Planning() {
-  const { user } = useAuth();
+  useAuth();
   const [activeTab, setActiveTab] = useState<'strategy' | 'approvals'>('strategy');
   const [stratType, setStratType] = useState<'plan' | 'report'>('plan');
   

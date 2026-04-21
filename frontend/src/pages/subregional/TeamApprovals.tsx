@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { subRegionalApi } from '../../api/subRegionalApi';
 import '../area/AreaPortal.css';
 import './SubRegional.css';

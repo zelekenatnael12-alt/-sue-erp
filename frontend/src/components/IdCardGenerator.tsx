@@ -53,7 +53,7 @@ export default function IdCardGenerator({ staff }: IdCardGeneratorProps) {
       // CR80 = 85.6 × 54 mm  (landscape)
       const cardW = 85.6;
       const cardH = 54;
-      const margin = 10;
+      // const margin = 10;
       const cropLen = 4;
       const cropGap = 2;
 
@@ -110,7 +110,7 @@ export default function IdCardGenerator({ staff }: IdCardGeneratorProps) {
       );
 
       pdf.save(`StaffID_${staff.idNumber?.replace('/', '-')}_${staff.full_name.replace(/\s+/g, '_')}.pdf`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('PDF generation failed', err);
       alert('Failed to generate ID card PDF. Please try again.');
     } finally {

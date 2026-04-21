@@ -8,7 +8,7 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
 
-  register: (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string }) =>
+  register: (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string; accessCode?: string }) =>
     apiClient<{ user: User }>('/auth/register', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -337,9 +337,11 @@ export interface DashboardStats {
 }
 
 export interface Announcement {
-  id: string;
+  id: number;
   title: string;
   content: string;
+  target: 'ALL' | 'COORDINATOR' | 'EXECUTIVE';
+  isActive: boolean;
   region?: string;
   subRegion?: string;
   area?: string;

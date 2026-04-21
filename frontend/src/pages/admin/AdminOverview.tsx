@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { api, AdminOverview as AdminOverviewData, AiInsights as AiInsightsData } from '../../api/api';
 import './AdminOverview.css';
 
-export default function AdminOverview({ isExecutive: _isExecutive }: { isExecutive?: boolean }) {
+export default function AdminOverview() {
   const [data, setData] = useState<AdminOverviewData | null>(null);
   const [insights, setInsights] = useState<AiInsightsData | null>(null);
   const [loading, setLoading] = useState(true);

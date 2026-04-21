@@ -57,7 +57,7 @@ const RegisterSchool: React.FC = () => {
         setFormData({ ...formData, latitude: pos.coords.latitude.toString(), longitude: pos.coords.longitude.toString() });
         setCapturingGps(false);
       },
-      (err) => {
+      () => {
         alert("Failed to capture location. Please ensure GPS is active.");
         setCapturingGps(false);
       }

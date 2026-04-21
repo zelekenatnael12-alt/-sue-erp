@@ -5,7 +5,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string }) => Promise<void>;
+  register: (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string; accessCode?: string }) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.user);
   }, []);
 
-  const register = useCallback(async (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string }) => {
+  const register = useCallback(async (payload: { email: string; password: string; name: string; role?: string; region?: string; subRegion?: string; area?: string; accessCode?: string }) => {
     const data = await api.register(payload);
     localStorage.setItem('sue_user', JSON.stringify(data.user));
     setUser(data.user);

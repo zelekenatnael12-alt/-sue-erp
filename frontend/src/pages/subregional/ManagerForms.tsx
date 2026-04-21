@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { subRegionalApi } from '../../api/subRegionalApi';
 import '../area/AreaForms.css';
 
-const ManagerForms: React.FC = () => {
+const ManagerForms = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const mode = searchParams.get('mode') || 'associate';

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { subRegionalApi } from '../../api/subRegionalApi';
 import '../area/AreaForms.css';
 
-const ProxySchoolEntry: React.FC = () => {
+const ProxySchoolEntry = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

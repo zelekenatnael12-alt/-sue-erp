@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './SubRegional.css';
@@ -25,7 +25,7 @@ interface DashboardStats {
   };
 }
 
-const SubRegionalHome: React.FC = () => {
+const SubRegionalHome = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -39,7 +39,7 @@ const SubRegionalHome: React.FC = () => {
         });
         const data = await response.json();
         setStats(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching sub-regional data:', error);
       } finally {
         setLoading(false);

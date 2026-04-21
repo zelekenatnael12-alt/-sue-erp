@@ -4,11 +4,17 @@ import { useAuth } from '../context/AuthContext';
 import { api } from '../api/api';
 import './ChangePassword.css';
 
-const REQUIREMENTS = [
+interface PasswordRequirement {
+  id: string;
+  label: string;
+  test: (p: string, c: string) => boolean;
+}
+
+const REQUIREMENTS: PasswordRequirement[] = [
   { id: 'length',  label: 'At least 8 characters',               test: (p: string) => p.length >= 8 },
   { id: 'number',  label: 'Contains a number',                   test: (p: string) => /\d/.test(p) },
   { id: 'upper',   label: 'Contains an uppercase letter',        test: (p: string) => /[A-Z]/.test(p) },
-  { id: 'match',   label: 'New passwords match',                 test: (_: string, c: string) => !!c && _ === c },
+  { id: 'match',   label: 'New passwords match',                 test: (p: string, c: string) => !!c && p === c },
 ];
 
 export default function ChangePassword() {
@@ -33,7 +39,6 @@ export default function ChangePassword() {
     try {
       const data = await api.changePassword(current, next);
       // Persist the fresh token/user (mustChangePassword is now false)
-      localStorage.setItem('sue_token', data.token);
       localStorage.setItem('sue_user', JSON.stringify(data.user));
       // Navigate to their home dashboard
       switch (data.user.role) {

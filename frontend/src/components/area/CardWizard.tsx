@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState, ReactNode } from 'react';
 import './CardWizard.css';
 
 export interface WizardStep {
   title: string;
   question: string;
   description?: string;
-  component: React.ReactNode;
+  component: ReactNode;
 }
 
 interface CardWizardProps {
@@ -15,7 +15,7 @@ interface CardWizardProps {
   error?: string;
 }
 
-const CardWizard: React.FC<CardWizardProps> = ({ steps, onSubmit, loading, error }) => {
+const CardWizard = ({ steps, onSubmit, loading, error }: CardWizardProps) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = async () => {

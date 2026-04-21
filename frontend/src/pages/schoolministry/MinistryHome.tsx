@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { api } from '../../api/api';
 import './Ministry.css';
 
-const MinistryHome: React.FC = () => {
+const MinistryHome = () => {
   const [stats, setStats] = useState<any>(null);
   const [staff, setStaff] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { api, User } from '../../api/api';
 import IdCardGenerator from '../../components/IdCardGenerator';
 import './AdminUsers.css';
@@ -45,7 +45,7 @@ const AdminUsers = ({ isExecutive }: { isExecutive?: boolean }) => {
     }
   };
 
-  const handleSaveUser = async (e: React.FormEvent) => {
+  const handleSaveUser = async (e: FormEvent) => {
     e.preventDefault();
     if (!editingUser) return;
     
@@ -69,7 +69,7 @@ const AdminUsers = ({ isExecutive }: { isExecutive?: boolean }) => {
     }
   };
 
-  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0] || !editingUser) return;
     const formData = new FormData();
     formData.append('media', e.target.files[0]);

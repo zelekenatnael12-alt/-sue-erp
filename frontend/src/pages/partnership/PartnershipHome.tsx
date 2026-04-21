@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { api } from '../../api/api';
 import './Growth.css';
 
@@ -7,7 +6,6 @@ const PartnershipHome: React.FC = () => {
   const [psrHealth, setPsrHealth] = useState<any[]>([]);
   const [conflicts, setConflicts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { api, Report } from '../api/api';
 import { useAuth } from '../context/AuthContext';
@@ -26,7 +26,7 @@ const DetailedRegionalReport = () => {
     setActualsMatrix(prev => ({ ...prev, [activityId]: parseInt(val) || 0 }));
   };
 
-  const handleMonthlySubmit = async (e: React.FormEvent) => {
+  const handleMonthlySubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!report?.projectPlanId) return;
     setIsSubmittingMonthly(true);
