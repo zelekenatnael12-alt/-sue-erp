@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api, ExecutiveAnalyticsPayload } from '../../api/api';
 import './ExecutiveDashboard.css';
 
@@ -7,6 +8,7 @@ type SimRole = 'NATIONAL_DIRECTOR' | 'SCHOOL_MINISTRY' | 'FINANCE_ADMIN';
 type Dept = 'SCHOOL_MINISTRY' | 'STAFF_CAPACITY' | 'PARTNERSHIP' | 'MEDIA' | 'FINANCE';
 
 export default function ExecutiveDashboard() {
+  const navigate = useNavigate();
   const [activeRole, setActiveRole] = useState<SimRole>('NATIONAL_DIRECTOR');
   
   // Modals
@@ -134,6 +136,13 @@ export default function ExecutiveDashboard() {
           </div>
           
           <div className="hq-header__actions">
+            <button
+              style={{ cursor: 'pointer', background: '#f0fdf4', border: '1.5px solid #16a34a', borderRadius: 8, padding: '0.35rem 0.9rem', color: '#15803d', fontWeight: 700, fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: 6 }}
+              onClick={() => navigate('/simulate')}
+            >
+              ⚡ Full Portal Simulator
+            </button>
+
             <div className="hq-simulator">
               <span className="hq-simulator__lbl">Simulate Login As:</span>
               <select className="hq-simulator__select" value={activeRole} onChange={(e) => setActiveRole(e.target.value as SimRole)}>

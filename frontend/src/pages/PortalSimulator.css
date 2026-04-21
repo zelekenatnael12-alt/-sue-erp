@@ -1,0 +1,115 @@
+/* ── Shell ───────────────────────────────────────────────── */
+.sim-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f1f5f9;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Top Bar ─────────────────────────────────────────────── */
+.sim-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  height: 56px;
+  background: #0f172a;
+  border-bottom: 2px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  flex-shrink: 0;
+}
+
+.sim-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.sim-bar__icon {
+  font-size: 1.4rem;
+  color: #38bdf8;
+}
+
+.sim-bar__brand strong {
+  display: block;
+  font-size: 0.8rem;
+  color: #f1f5f9;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.sim-bar__brand span {
+  display: block;
+  font-size: 0.65rem;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Role Tabs ─────────────────────────────────────────── */
+.sim-bar__tabs {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.sim-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sim-tab:hover {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.sim-tab--active {
+  background: #1e293b;
+  font-weight: 700;
+}
+
+.sim-tab__icon {
+  font-size: 0.9rem;
+}
+
+/* ── Active Badge ──────────────────────────────────────── */
+.sim-bar__badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Content Area ────────────────────────────────────────── */
+.sim-content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Responsive — collapse tab labels on small screens */
+@media (max-width: 900px) {
+  .sim-tab__label { display: none; }
+  .sim-tab { padding: 0.35rem 0.5rem; }
+  .sim-bar__badge span:last-child { display: none; }
+}

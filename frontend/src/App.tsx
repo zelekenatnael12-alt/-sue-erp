@@ -8,6 +8,7 @@ import SouthEthiopiaTree from './pages/dashboards/suethiopiatree';
 import AreaReports from './pages/dashboards/AreaReports';
 import AdminDashboard from './pages/dashboards/AdminDashboard';
 import ExecutiveDashboard from './pages/dashboards/ExecutiveDashboard';
+import PortalSimulator from './pages/PortalSimulator';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PublicVerify from './pages/PublicVerify';
@@ -87,6 +88,16 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/verify/:idNumber" element={<PublicVerify />} />
             <Route path="/change-password" element={<ChangePassword />} />
+
+            {/* Portal Simulator - Admin & Executive only */}
+            <Route
+              path="/simulate"
+              element={
+                <PrivateRoute allowedRoles={['ADMIN', 'EXECUTIVE']}>
+                  <PortalSimulator />
+                </PrivateRoute>
+              }
+            />
 
             {/* Area Dashboard - AREA_STAFF only */}
             <Route
