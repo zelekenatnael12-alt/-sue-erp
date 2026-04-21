@@ -226,9 +226,22 @@ function getGeographyWhere(user) {
 // ─── Auth: Register (Admin-Only Interface) ──────────────────────────────────
 app.post('/api/auth/register', authenticateToken, async (req, res) => {
   try {
-    // Only ADMIN or EXECUTIVE can create new users in this phase
-    if (req.user.role !== 'ADMIN' && req.user.role !== 'EXECUTIVE') {
-      return res.status(403).json({ error: 'Only administrators can create new accounts.' });
+    // Allow public registration if a valid accessCode is provided (for first-time setup)
+    const { accessCode } = req.body;
+    const adminCode = process.env.ADMIN_CODE || 'SUE-ADMIN-2024';
+    const execCode = process.env.EXECUTIVE_CODE || 'SUE-EXEC-2024';
+
+    const isPublicRegistration = accessCode === adminCode || accessCode === execCode;
+
+    if (!isPublicRegistration && (!req.user || (req.user.role !== 'ADMIN' && req.user.role !== 'EXECUTIVE'))) {
+      return res.status(403).json({ error: 'Only administrators can create new accounts, or a valid access code is required.' });
+    }
+
+    // Assign role based on accessCode if it's a public registration
+    let assignedRole = req.body.role || 'AREA_STAFF';
+    if (isPublicRegistration) {
+      if (accessCode === adminCode) assignedRole = 'ADMIN';
+      else if (accessCode === execCode) assignedRole = 'EXECUTIVE';
     }
 
     const { 
