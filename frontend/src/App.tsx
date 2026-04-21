@@ -77,7 +77,7 @@ import './index.css';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/erp">
+      <BrowserRouter basename="/-sue-erp">
         <ErrorBoundary>
           <Routes>
             <Route path="/under-construction" element={<UnderConstruction />} />
