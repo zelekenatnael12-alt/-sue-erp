@@ -223,21 +223,37 @@ function getGeographyWhere(user) {
   return { authorId: user.id }; // Fallback to personal only
 }
 
-// ─── Auth: Register (Admin-Only Interface) ──────────────────────────────────
-app.post('/api/auth/register', authenticateToken, async (req, res) => {
+// ─── Auth: Register (Admin-Only or Access-Code Protected) ───────────────────
+app.post('/api/auth/register', async (req, res) => {
   try {
-    // Allow public registration if a valid accessCode is provided (for first-time setup)
+    // 1. Check if user is authenticated as an admin
+    let isAuthorized = false;
+    let currentUser = null;
+
+    const token = req.cookies.sue_token;
+    if (token) {
+      try {
+        currentUser = jwt.verify(token, JWT_SECRET);
+        if (currentUser.role === 'ADMIN' || currentUser.role === 'EXECUTIVE') {
+          isAuthorized = true;
+        }
+      } catch (err) {
+        // Token invalid, continue to check access code
+      }
+    }
+
+    // 2. Fallback: Check if a valid accessCode is provided (for public registration/first setup)
     const { accessCode } = req.body;
     const adminCode = process.env.ADMIN_CODE || 'SUE-ADMIN-2024';
     const execCode = process.env.EXECUTIVE_CODE || 'SUE-EXEC-2024';
 
     const isPublicRegistration = accessCode === adminCode || accessCode === execCode;
 
-    if (!isPublicRegistration && (!req.user || (req.user.role !== 'ADMIN' && req.user.role !== 'EXECUTIVE'))) {
+    if (!isAuthorized && !isPublicRegistration) {
       return res.status(403).json({ error: 'Only administrators can create new accounts, or a valid access code is required.' });
     }
 
-    // Assign role based on accessCode if it's a public registration
+    // 3. Assign role based on accessCode if it's a public registration
     let assignedRole = req.body.role || 'AREA_STAFF';
     if (isPublicRegistration) {
       if (accessCode === adminCode) assignedRole = 'ADMIN';
